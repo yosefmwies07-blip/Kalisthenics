@@ -239,10 +239,52 @@
 </div>
 </nav>
 <script>
-    document.addEventListener('click', function() {
-        document.body.style.backgroundColor = "red";
-        alert("تم استلام اللمسة!");
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. تفعيل عداد المجموعات (Sets) لأي بطاقة تمرين
+    // سنبحث عن أي عنصر يحتوي على نص "SETS" ونفعل الضغط عليه
+    const allCards = document.querySelectorAll('div.bg-surface-container-low, div.bg-white\\/5');
+    
+    allCards.forEach(card => {
+        card.style.cursor = "pointer"; // لجعلها تبدو كزر
+        card.addEventListener('click', function() {
+            // البحث عن الرقم الموجود بجانب كلمة SETS
+            let setNumberElement = this.querySelector('.text-4xl');
+            if (setNumberElement) {
+                let currentSets = parseInt(setNumberElement.innerText);
+                if (currentSets > 0) {
+                    setNumberElement.innerText = currentSets - 1;
+                    // تأثير بصري خفيف للتأكيد
+                    this.style.borderColor = "#CCFF00";
+                    setTimeout(() => this.style.borderColor = "transparent", 300);
+                } else {
+                    alert("عاش يا بطل! أنهيت مجموعات هذا التمرين.");
+                    setNumberElement.innerText = "4"; // إعادة التعيين لـ 4
+                }
+            }
+        });
     });
+
+    // 2. تفعيل اختيار أيام الأسبوع
+    const dayButtons = document.querySelectorAll('button');
+    dayButtons.forEach(btn => {
+        // إذا كان الزر يحتوي على حرف واحد فقط (S, M, T...)
+        if (btn.innerText.trim().length === 1) {
+            btn.addEventListener('click', function() {
+                this.classList.toggle('bg-[#CCFF00]');
+                this.classList.toggle('text-black');
+                this.classList.toggle('shadow-[0_0_15px_rgba(204,255,0,0.6)]');
+            });
+        }
+    });
+
+    // 3. تفعيل زر حفظ الروتين
+    const saveBtn = document.querySelector('button.w-full.bg-\\[\\#CCFF00\\]');
+    if (saveBtn) {
+        saveBtn.addEventListener('click', () => {
+            alert("تم حفظ جدول تمارينك الجديد بنجاح! 🔥");
+        });
+    }
+});
 </script>
 </body>
 </html>
