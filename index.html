@@ -238,4 +238,77 @@
 <span class="font-['Inter'] font-bold uppercase tracking-[0.05em] text-[10px] mt-1">PROFILE</span>
 </div>
 </nav>
-</body></html>
+<script>
+// --- 1. نظام العداد والمجموعات ---
+let currentSet = 0;
+const totalSets = 4; // افتراضي لتمرين الـ Pull-ups
+
+function updateSetCounter(element) {
+    let setDisplay = element.querySelector('.text-4xl'); // نحدد مكان رقم المجموعة
+    let setsLeft = parseInt(setDisplay.innerText);
+    
+    if (setsLeft > 0) {
+        setsLeft--;
+        setDisplay.innerText = setsLeft;
+        element.classList.add('scale-95', 'opacity-50'); // تأثير بصري عند الضغط
+        setTimeout(() => element.classList.remove('scale-95'), 100);
+        
+        // تشغيل مؤقت الراحة تلقائياً بعد كل مجموعة
+        startRestTimer(60); 
+    } else {
+        alert("عاش! أنهيت جميع المجموعات لهذا التمرين.");
+        setDisplay.innerText = totalSets; // إعادة التعيين
+        element.classList.remove('opacity-50');
+    }
+}
+
+// --- 2. نظام مؤقت الراحة (Timer) ---
+let timerInterval;
+function startRestTimer(seconds) {
+    clearInterval(timerInterval);
+    let timeLeft = seconds;
+    
+    // إنشاء نافذة مؤقت تظهر في الأسفل
+    const timerDiv = document.createElement('div');
+    timerDiv.className = "fixed bottom-24 left-1/2 -translate-x-1/2 bg-[#CCFF00] text-[#111508] px-6 py-2 rounded-full font-bold shadow-lg z-50 flex items-center gap-3";
+    timerDiv.innerHTML = `<span>وقت الراحة:</span> <span id="timer-clock">${timeLeft}s</span>`;
+    document.body.appendChild(timerDiv);
+
+    timerInterval = setInterval(() => {
+        timeLeft--;
+        document.getElementById('timer-clock').innerText = timeLeft + "s";
+        
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            timerDiv.remove();
+            alert("انتهت الراحة! استعد للمجموعة التالية.");
+        }
+    }, 1000);
+}
+
+// --- 3. ربط الأزرار بالكود ---
+document.querySelectorAll('.bg-surface-container-low').forEach(card => {
+    card.style.cursor = "pointer";
+    card.addEventListener('click', function() {
+        updateSetCounter(this);
+    });
+});
+
+// --- 4. تفعيل التنقل السفلي (Navigation) ---
+const navButtons = document.querySelectorAll('nav div');
+navButtons.forEach(btn => {
+    btn.addEventListener('click', function() {
+        navButtons.forEach(b => {
+            b.classList.remove('bg-[#CCFF00]', 'text-[#111508]');
+            b.classList.add('text-white/50');
+        });
+        this.classList.add('bg-[#CCFF00]', 'text-[#111508]');
+        this.classList.remove('text-white/50');
+        
+        // هنا يمكنك إضافة منطق لإظهار/إخفاء أقسام التطبيق
+        console.log("انتقلت إلى قسم: " + this.innerText);
+    });
+});
+</script>
+</body>
+</html>
