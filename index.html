@@ -1,170 +1,238 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Blue Flash - Pro</title>
+    <title>The Blue Flash - Ultra</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #0d0f05; color: #fff; overflow-x: hidden; }
-        .neon-border { box-shadow: 0 0 15px rgba(204,255,0,0.3); border: 1px solid #CCFF00; }
-        .hidden-page { display: none; }
-        .active-page { display: block; animation: fadeIn 0.3s ease-in; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        body { font-family: 'Cairo', sans-serif; background-color: #0d0f05; color: #fff; }
+        .neon-text { color: #CCFF00; text-shadow: 0 0 10px rgba(204,255,0,0.5); }
+        .neon-bg { background-color: #CCFF00; color: #000; box-shadow: 0 0 20px rgba(204,255,0,0.4); }
+        .page { display: none; min-height: 100vh; }
+        .page.active { display: block; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
-    <main id="main-page" class="p-6 active-page mb-24">
-        <h1 class="text-[#CCFF00] text-3xl font-black mb-6 uppercase tracking-tighter">The Blue Flash</h1>
-        
-        <section class="mb-8">
-            <p class="text-white/50 text-xs mb-3 font-bold uppercase tracking-widest">Schedule Days</p>
-            <div id="day-selector" class="flex justify-between">
-                <button class="w-10 h-10 rounded-full bg-white/5 text-white/30 font-bold text-xs transition-all">S</button>
-                <button class="w-10 h-10 rounded-full bg-white/5 text-white/30 font-bold text-xs transition-all">M</button>
-                <button class="w-10 h-10 rounded-full bg-white/5 text-white/30 font-bold text-xs transition-all">T</button>
-                <button class="w-10 h-10 rounded-full bg-white/5 text-white/30 font-bold text-xs transition-all">W</button>
-                <button class="w-10 h-10 rounded-full bg-white/5 text-white/30 font-bold text-xs transition-all">T</button>
-                <button class="w-10 h-10 rounded-full bg-white/5 text-white/30 font-bold text-xs transition-all">F</button>
-                <button class="w-10 h-10 rounded-full bg-white/5 text-white/30 font-bold text-xs transition-all">S</button>
-            </div>
-        </section>
+    <div id="page-login" class="page active flex flex-col items-center justify-center p-10 text-center">
+        <h1 class="text-5xl font-black neon-text mb-4 italic">THE BLUE FLASH</h1>
+        <p class="text-white/60 mb-10">مرحباً بك في نظام التدريب الذكي</p>
+        <button onclick="goToPage('page-onboarding')" class="w-full py-4 bg-white text-black font-bold rounded-2xl flex items-center justify-center gap-3">
+            <img src="https://www.google.com/favicon.ico" class="w-5"> الدخول بواسطة Google
+        </button>
+    </div>
 
-        <h2 class="text-2xl font-black italic mb-4">EXERCISES</h2>
-        <div class="space-y-4">
-            <div onclick="openExercise('Wide Pull-ups', '7', 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJleXJueXp4bmR6NXp4bmR6NXp4bmR6NXp4bmR6NXp4bmR6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKMGpxVfFZYMPl6/giphy.gif')" class="bg-[#1a1d0d] p-4 rounded-3xl flex items-center gap-4 cursor-pointer hover:bg-[#252a12] transition-all">
-                <div class="w-16 h-16 bg-black rounded-2xl overflow-hidden"><img src="https://placehold.co/100x100/black/CCFF00?text=PULL" class="w-full h-full"></div>
-                <div class="flex-1">
-                    <h3 class="font-bold">WIDE PULL-UPS</h3>
-                    <p class="text-xs text-white/50 uppercase">Strength • Back</p>
-                </div>
-                <div class="text-right text-[#CCFF00] font-black text-xl">4 <span class="text-[10px] block text-white/50 uppercase">Sets</span></div>
+    <div id="page-onboarding" class="page p-6">
+        <h2 class="text-2xl font-bold mb-8 neon-text italic">أخبرنا عنك..</h2>
+        <div class="space-y-6">
+            <div>
+                <label class="block text-xs text-white/50 mb-2">العمر</label>
+                <input id="user-age" type="number" class="w-full bg-white/5 border border-white/10 p-4 rounded-2xl outline-none focus:border-[#CCFF00]">
             </div>
-
-            <div onclick="openExercise('Diamond Pushups', '5', 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJleXJueXp4bmR6NXp4bmR6NXp4bmR6NXp4bmR6NXp4bmR6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKMGpxVfFZYMPl6/giphy.gif')" class="bg-[#1a1d0d] p-4 rounded-3xl flex items-center gap-4 cursor-pointer hover:bg-[#252a12] transition-all">
-                <div class="w-16 h-16 bg-black rounded-2xl overflow-hidden"><img src="https://placehold.co/100x100/black/CCFF00?text=PUSH" class="w-full h-full"></div>
-                <div class="flex-1">
-                    <h3 class="font-bold">DIAMOND PUSHUPS</h3>
-                    <p class="text-xs text-white/50 uppercase">Endurance • Chest</p>
-                </div>
-                <div class="text-right text-[#CCFF00] font-black text-xl">3 <span class="text-[10px] block text-white/50 uppercase">Sets</span></div>
+            <div>
+                <label class="block text-xs text-white/50 mb-2">الوزن (كجم)</label>
+                <input id="user-weight" type="number" class="w-full bg-white/5 border border-white/10 p-4 rounded-2xl outline-none focus:border-[#CCFF00]">
             </div>
+            <div>
+                <label class="block text-xs text-white/50 mb-2">المستوى</label>
+                <select id="user-level" class="w-full bg-white/5 border border-white/10 p-4 rounded-2xl outline-none">
+                    <option value="1">مبتدئ</option>
+                    <option value="1.5">متوسط</option>
+                    <option value="2">متقدم</option>
+                </select>
+            </div>
+            <button onclick="goToPage('page-goal')" class="w-full py-4 neon-bg font-black rounded-2xl mt-10">التالي</button>
         </div>
+    </div>
+
+    <div id="page-goal" class="page p-6 text-center">
+        <h2 class="text-2xl font-bold mb-8 italic">ماذا تريد أن تمرن اليوم؟</h2>
+        <div class="grid grid-cols-2 gap-4">
+            <button onclick="selectGoal('صدر')" class="p-6 bg-white/5 rounded-3xl border border-white/10 hover:border-[#CCFF00]">صدر</button>
+            <button onclick="selectGoal('بطن')" class="p-6 bg-white/5 rounded-3xl border border-white/10 hover:border-[#CCFF00]">بطن</button>
+            <button onclick="selectGoal('سواعد')" class="p-6 bg-white/5 rounded-3xl border border-white/10 hover:border-[#CCFF00]">سواعد</button>
+            <button onclick="selectGoal('أقدام')" class="p-6 bg-white/5 rounded-3xl border border-white/10 hover:border-[#CCFF00]">أقدام</button>
+            <button onclick="selectGoal('كامل')" class="w-full col-span-2 p-6 bg-[#CCFF00]/10 rounded-3xl border border-[#CCFF00]">جسم كامل</button>
+        </div>
+    </div>
+
+    <main id="page-main" class="page p-6 pb-32">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-2xl font-black italic neon-text uppercase">برنامجي اليومي</h1>
+            <div id="user-info-chip" class="bg-white/10 px-3 py-1 rounded-full text-[10px]">50kg | 165cm</div>
+        </div>
+        
+        <div id="day-selector" class="flex justify-between mb-8">
+            <button onclick="toggleDay(this)" class="w-10 h-10 rounded-full bg-white/5 text-xs">S</button>
+            <button onclick="toggleDay(this)" class="w-10 h-10 rounded-full bg-white/5 text-xs">M</button>
+            <button onclick="toggleDay(this)" class="w-10 h-10 rounded-full bg-white/5 text-xs">T</button>
+            <button onclick="toggleDay(this)" class="w-10 h-10 rounded-full bg-white/5 text-xs">W</button>
+            <button onclick="toggleDay(this)" class="w-10 h-10 rounded-full bg-white/5 text-xs">T</button>
+            <button onclick="toggleDay(this)" class="w-10 h-10 rounded-full bg-white/5 text-xs">F</button>
+            <button onclick="toggleDay(this)" class="w-10 h-10 rounded-full bg-white/5 text-xs">S</button>
+        </div>
+
+        <div id="exercise-list" class="space-y-4">
+            </div>
     </main>
 
-    <section id="workout-page" class="hidden-page fixed inset-0 bg-black z-50 p-6">
-        <button onclick="closeExercise()" class="text-[#CCFF00] mb-6">← Back</button>
-        <h2 id="ex-title" class="text-3xl font-black italic mb-2 uppercase">PUSHUPS</h2>
-        <div class="w-full aspect-video bg-[#1a1d0d] rounded-3xl mb-6 overflow-hidden flex items-center justify-center">
-            <img id="ex-gif" src="" class="w-full h-full object-cover">
+    <div id="page-guide" class="page fixed inset-0 bg-black z-[100] p-6 text-center">
+        <h2 id="guide-title" class="text-3xl font-black neon-text mb-4 italic">اسم التمرين</h2>
+        <div class="rounded-3xl overflow-hidden bg-white/5 aspect-square mb-6 border border-white/10">
+            <img id="guide-gif" src="" class="w-full h-full object-cover">
         </div>
+        <p class="text-white/60 mb-8">تأكد من استقامة الظهر والتنفس المنتظم أثناء الأداء.</p>
+        <button onclick="startExerciseNow()" class="w-full py-5 neon-bg text-xl font-black rounded-full">ابدأ التمرين الآن 🚀</button>
+    </div>
+
+    <div id="page-timer" class="page fixed inset-0 bg-black z-[101] p-6 flex flex-col justify-center items-center">
+        <div class="text-sm text-[#CCFF00] font-bold mb-2 tracking-widest uppercase">جاري التمرين..</div>
+        <div id="active-timer-clock" class="text-8xl font-black italic mb-10">00:00</div>
         
-        <div class="grid grid-cols-2 gap-4 mb-8">
-            <div class="bg-[#1a1d0d] p-4 rounded-3xl text-center">
-                <p id="workout-timer" class="text-4xl font-black text-[#CCFF00]">00:00</p>
-                <p class="text-[10px] text-white/50 uppercase">Time Elapsed</p>
+        <div class="grid grid-cols-2 gap-4 w-full mb-10">
+            <div class="bg-white/5 p-4 rounded-3xl text-center">
+                <span id="live-cals" class="text-2xl font-bold">0</span>
+                <p class="text-[10px] text-white/40">سعرة حرارية</p>
             </div>
-            <div class="bg-[#1a1d0d] p-4 rounded-3xl text-center">
-                <p id="ex-calories" class="text-4xl font-black text-[#CCFF00]">0</p>
-                <p class="text-[10px] text-white/50 uppercase">Est. Calories</p>
+            <div class="bg-white/5 p-4 rounded-3xl text-center">
+                <span id="current-set-display" class="text-2xl font-bold italic">1 / 4</span>
+                <p class="text-[10px] text-white/40">المجموعات</p>
             </div>
         </div>
 
-        <button id="finish-btn" class="w-full py-5 bg-[#CCFF00] text-black font-black text-xl rounded-full shadow-[0_0_20px_rgba(204,255,0,0.4)]">FINISH SET</button>
-    </section>
+        <button onclick="finishSet()" class="w-full py-5 border-2 border-[#CCFF00] text-[#CCFF00] font-black rounded-full mb-4">إنهاء المجموعة (Set)</button>
+        <button onclick="exitExercise()" class="text-white/40 text-sm">إيقاف التمرين كلياً</button>
+    </div>
 
-    <section id="stats-page" class="hidden-page p-6 mb-24">
-        <h2 class="text-3xl font-black italic mb-8">MY PROGRESS</h2>
-        <div class="bg-[#CCFF00] p-6 rounded-[40px] text-black mb-4">
-            <p class="font-bold uppercase text-xs opacity-60 mb-1">Total Calories Today</p>
-            <h3 id="total-cal" class="text-6xl font-black italic">0</h3>
+    <div id="page-stats" class="page p-6 pb-32">
+        <h2 class="text-3xl font-black italic mb-8">إحصائياتي</h2>
+        <div class="space-y-4">
+            <div class="bg-[#CCFF00] p-8 rounded-[40px] text-black">
+                <p class="text-xs font-bold opacity-60">إجمالي الحرق اليوم</p>
+                <div class="text-6xl font-black italic"><span id="stats-total-cal">0</span> <small class="text-lg">Kcal</small></div>
+            </div>
+            <div class="bg-white/5 p-8 rounded-[40px] border border-white/10">
+                <p class="text-xs text-white/40 font-bold">الوقت الإجمالي للتمرين</p>
+                <div id="stats-total-time" class="text-4xl font-black italic">00:00</div>
+            </div>
         </div>
-        <div class="bg-white/5 p-6 rounded-[40px] border border-white/10">
-            <p class="text-white/50 uppercase text-xs mb-1 font-bold">Total Active Time</p>
-            <h3 id="total-time" class="text-4xl font-black tracking-tighter">00:00</h3>
-        </div>
-    </section>
+    </div>
 
-    <nav class="fixed bottom-0 left-0 w-full bg-black/80 backdrop-blur-xl border-t border-white/10 p-4 flex justify-around">
-        <button onclick="showPage('main-page')" class="flex flex-col items-center text-[#CCFF00]">
-            <span class="text-xs font-black italic">TRAIN</span>
-        </button>
-        <button onclick="showPage('stats-page')" class="flex flex-col items-center text-white/30">
-            <span class="text-xs font-black italic text-white/30">STATS</span>
-        </button>
+    <nav class="fixed bottom-0 left-0 w-full bg-black/90 backdrop-blur-md p-5 border-t border-white/5 flex justify-around items-center z-50">
+        <button onclick="goToPage('page-main')" class="text-[#CCFF00] font-black italic text-xs">الجدول</button>
+        <button onclick="goToPage('page-stats')" class="text-white/40 font-black italic text-xs">الإحصائيات</button>
+        <button onclick="goToPage('page-onboarding')" class="text-white/40 font-black italic text-xs">حسابي</button>
     </nav>
 
     <script>
-        // المتغيرات العالمية لتخزين البيانات
-        let totalCals = 0;
-        let totalSeconds = 0;
-        let activeTimer;
-        let currentExCalRate = 0;
-        let startTime;
+        // داتابيز التمارين (عينة لـ 50 تمرين سيتم توليدها)
+        const workoutDB = {
+            "صدر": [
+                {name: "Pushups", cals: 8, gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJleXJueXp4bmR6NXp4bmR6NXp4bmR6NXp4bmR6NXp4bmR6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKMGpxVfFZYMPl6/giphy.gif"},
+                {name: "Diamond Pushups", cals: 10, gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJleXJueXp4bmR6NXp4bmR6NXp4bmR6NXp4bmR6NXp4bmR6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKMGpxVfFZYMPl6/giphy.gif"},
+                // أضف المزيد هنا حتى 10 لكل قسم
+            ],
+            "بطن": [{name: "Plank", cals: 5, gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJleXJueXp4bmR6NXp4bmR6NXp4bmR6NXp4bmR6NXp4bmR6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKMGpxVfFZYMPl6/giphy.gif"}]
+        };
 
-        // 1. التبديل بين الصفحات
-        function showPage(pageId) {
-            document.querySelectorAll('main, section').forEach(p => p.classList.add('hidden-page'));
-            document.getElementById(pageId).classList.remove('hidden-page');
-            document.getElementById(pageId).classList.add('active-page');
+        let state = {
+            totalCal: 0,
+            totalSec: 0,
+            currentExercise: null,
+            setsDone: 0,
+            timer: null,
+            secInEx: 0
+        };
+
+        function goToPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
         }
 
-        // 2. فتح تمرين محدد
-        function openExercise(title, calRate, gifUrl) {
-            document.getElementById('workout-page').classList.remove('hidden-page');
-            document.getElementById('ex-title').innerText = title;
-            document.getElementById('ex-gif').src = gifUrl;
-            currentExCalRate = calRate; // سعرات لكل دقيقة
+        function toggleDay(btn) {
+            btn.classList.toggle('neon-bg');
+            btn.classList.toggle('text-black');
+        }
+
+        function selectGoal(goal) {
+            const list = document.getElementById('exercise-list');
+            list.innerHTML = "";
+            const exercises = workoutDB[goal] || workoutDB["صدر"];
             
-            // بدء المؤقت
-            let sec = 0;
-            startTime = Date.now();
-            clearInterval(activeTimer);
-            activeTimer = setInterval(() => {
-                sec++;
-                let m = Math.floor(sec / 60);
-                let s = sec % 60;
-                document.getElementById('workout-timer').innerText = `${m < 10 ? '0'+m : m}:${s < 10 ? '0'+s : s}`;
+            exercises.forEach(ex => {
+                list.innerHTML += `
+                    <div onclick="previewExercise('${ex.name}', '${ex.gif}', ${ex.cals})" class="bg-white/5 p-5 rounded-[30px] flex items-center justify-between">
+                        <div>
+                            <h4 class="font-bold">${ex.name}</h4>
+                            <p class="text-[10px] text-white/40 uppercase tracking-widest">4 Sets | 12 Reps</p>
+                        </div>
+                        <div class="text-[#CCFF00] font-black italic">START</div>
+                    </div>
+                `;
+            });
+            goToPage('page-main');
+        }
+
+        function previewExercise(name, gif, cals) {
+            state.currentExercise = {name, gif, cals};
+            document.getElementById('guide-title').innerText = name;
+            document.getElementById('guide-gif').src = gif;
+            goToPage('page-guide');
+        }
+
+        function startExerciseNow() {
+            goToPage('page-timer');
+            state.secInEx = 0;
+            state.setsDone = 1;
+            document.getElementById('current-set-display').innerText = `1 / 4`;
+            
+            clearInterval(state.timer);
+            state.timer = setInterval(() => {
+                state.secInEx++;
+                state.totalSec++;
                 
-                // حساب سعرات اللحظة
-                let cal = Math.floor((sec / 60) * currentExCalRate);
-                document.getElementById('ex-calories').innerText = cal;
+                // حساب السعرات بناء على الوزن والمستوى
+                let weight = document.getElementById('user-weight').value || 50;
+                let level = document.getElementById('user-level').value || 1;
+                let burned = Math.floor((state.secInEx / 60) * state.currentExercise.cals * (weight/70) * level);
+                
+                document.getElementById('active-timer-clock').innerText = formatTime(state.secInEx);
+                document.getElementById('live-cals').innerText = burned;
             }, 1000);
         }
 
-        // 3. إنهاء التمرين وحفظ البيانات
-        function closeExercise() {
-            clearInterval(activeTimer);
-            document.getElementById('workout-page').classList.add('hidden-page');
+        function finishSet() {
+            if(state.setsDone < 4) {
+                state.setsDone++;
+                document.getElementById('current-set-display').innerText = `${state.setsDone} / 4`;
+                alert("استرح لمدة 45 ثانية!");
+            } else {
+                exitExercise();
+            }
         }
 
-        document.getElementById('finish-btn').onclick = function() {
-            let elapsedSec = Math.floor((Date.now() - startTime) / 1000);
-            let earnedCals = Math.floor((elapsedSec / 60) * currentExCalRate);
+        function exitExercise() {
+            clearInterval(state.timer);
+            let weight = document.getElementById('user-weight').value || 50;
+            let level = document.getElementById('user-level').value || 1;
+            let earned = Math.floor((state.secInEx / 60) * state.currentExercise.cals * (weight/70) * level);
             
-            totalSeconds += elapsedSec;
-            totalCals += earnedCals;
+            state.totalCal += earned;
+            document.getElementById('stats-total-cal').innerText = state.totalCal;
+            document.getElementById('stats-total-time').innerText = formatTime(state.totalSec);
             
-            // تحديث واجهة الإحصائيات
-            document.getElementById('total-cal').innerText = totalCals;
-            let tm = Math.floor(totalSeconds / 60);
-            let ts = totalSeconds % 60;
-            document.getElementById('total-time').innerText = `${tm}:${ts < 10 ? '0'+ts : ts}`;
-            
-            alert(`تم الحفظ! حرقت ${earnedCals} سعرة في ${Math.floor(elapsedSec/60)} دقيقة.`);
-            closeExercise();
-        };
+            alert(`عمل رائع! حرقت ${earned} سعرة.`);
+            goToPage('page-main');
+        }
 
-        // 4. تفعيل أزرار الأيام (تعدد الاختيار)
-        document.querySelectorAll('#day-selector button').forEach(btn => {
-            btn.onclick = function() {
-                this.classList.toggle('bg-[#CCFF00]');
-                this.classList.toggle('text-black');
-                this.classList.toggle('neon-border');
-            }
-        });
+        function formatTime(s) {
+            let m = Math.floor(s/60);
+            let sc = s%60;
+            return `${m < 10 ? '0'+m : m}:${sc < 10 ? '0'+sc : sc}`;
+        }
     </script>
 </body>
 </html>
