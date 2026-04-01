@@ -3,151 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Blue Flash - Fixed</title>
+    <title>The Blue Flash - Stable</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Cairo', sans-serif; background-color: #0d0f05; color: #fff; margin: 0; overflow-x: hidden; }
-        .page { display: none; min-height: 100vh; width: 100%; position: absolute; top: 0; left: 0; }
-        .page.active { display: block; z-index: 10; }
+        /* القفل السحري لمنع التداخل */
+        .page { 
+            display: none; /* مخفية تماماً بشكل افتراضي */
+            min-height: 100vh; 
+            width: 100%; 
+            background: #0d0f05;
+        }
+        /* الصفحة النشطة فقط هي التي تظهر */
+        .page.active { display: block !important; }
+        .neon-text { color: #CCFF00; }
         .neon-bg { background-color: #CCFF00 !important; color: #000 !important; }
-        .btn-neon { background-color: #CCFF00; color: #000; font-weight: 900; }
     </style>
 </head>
 <body>
 
     <div id="page-login" class="page active flex flex-col items-center justify-center p-8 text-center">
-        <h1 class="text-5xl font-black text-[#CCFF00] mb-4 italic">THE BLUE FLASH</h1>
-        <p class="opacity-50 mb-10">نظام التدريب الذكي</p>
+        <h1 class="text-5xl font-black neon-text mb-4 italic">THE BLUE FLASH</h1>
+        <p class="opacity-50 mb-10 text-sm">نظام التدريب الذكي</p>
         <button onclick="goToPage('page-onboarding')" class="w-full py-4 bg-white text-black font-bold rounded-2xl">الدخول بواسطة Google</button>
     </div>
 
-    <div id="page-onboarding" class="page p-6 bg-[#0d0f05]">
-        <h2 class="text-2xl font-bold mb-6 text-[#CCFF00]">بياناتك البدنية</h2>
-        <div class="space-y-4">
-            <input id="user-weight" type="number" placeholder="الوزن (كجم)" class="w-full bg-white/5 p-4 rounded-xl border border-white/10">
-            <select id="user-level" class="w-full bg-white/5 p-4 rounded-xl border border-white/10">
-                <option value="1">مبتدئ</option>
-                <option value="1.5">متوسط</option>
-                <option value="2">متقدم</option>
-            </select>
-            <button onclick="goToPage('page-main')" class="w-full py-4 btn-neon rounded-xl">حفظ والذهاب للجدول</button>
+    <div id="page-onboarding" class="page p-6">
+        <h2 class="text-2xl font-bold mb-8 neon-text italic text-right">إعداد الملف الشخصي</h2>
+        <div class="space-y-6">
+            <div>
+                <label class="block text-xs opacity-50 mb-2 text-right">العمر</label>
+                <input id="user-age" type="number" placeholder="أدخل عمرك" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-[#CCFF00] text-right">
+            </div>
+            <div>
+                <label class="block text-xs opacity-50 mb-2 text-right">الوزن (كجم)</label>
+                <input id="user-weight" type="number" value="50" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none text-right">
+            </div>
+            <div>
+                <label class="block text-xs opacity-50 mb-2 text-right">المستوى</label>
+                <select id="user-level" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none text-right">
+                    <option value="1">مبتدئ</option>
+                    <option value="1.5">متوسط</option>
+                    <option value="2">متقدم</option>
+                </select>
+            </div>
+            <button onclick="goToPage('page-main')" class="w-full py-4 neon-bg font-black rounded-xl">حفظ والمتابعة</button>
         </div>
     </div>
 
-    <div id="page-main" class="page p-6 pb-24 bg-[#0d0f05]">
-        <h2 class="text-2xl font-black mb-6 italic text-[#CCFF00]">برنامجي اليومي</h2>
-        
-        <div class="flex justify-between mb-8">
-            <button onclick="this.classList.toggle('neon-bg')" class="w-10 h-10 rounded-full bg-white/5 text-xs">S</button>
-            <button onclick="this.classList.toggle('neon-bg')" class="w-10 h-10 rounded-full bg-white/5 text-xs">M</button>
-            <button onclick="this.classList.toggle('neon-bg')" class="w-10 h-10 rounded-full bg-white/5 text-xs">T</button>
-            <button onclick="this.classList.toggle('neon-bg')" class="w-10 h-10 rounded-full bg-white/5 text-xs">W</button>
-            <button onclick="this.classList.toggle('neon-bg')" class="w-10 h-10 rounded-full bg-white/5 text-xs">T</button>
-            <button onclick="this.classList.toggle('neon-bg')" class="w-10 h-10 rounded-full bg-white/5 text-xs">F</button>
-            <button onclick="this.classList.toggle('neon-bg')" class="w-10 h-10 rounded-full bg-white/5 text-xs">S</button>
-        </div>
-
+    <div id="page-main" class="page p-6 pb-24">
+        <h2 class="text-2xl font-black mb-6 italic neon-text text-right uppercase">الجدول اليومي</h2>
         <div class="space-y-4">
-            <div onclick="startWorkout('تمارين الضغط', 8)" class="bg-white/5 p-5 rounded-2xl flex justify-between items-center cursor-pointer">
-                <span>تمارين الضغط (Pushups)</span>
-                <span class="text-[#CCFF00]">ابدأ ←</span>
-            </div>
-            <div onclick="startWorkout('تمارين البطن', 6)" class="bg-white/5 p-5 rounded-2xl flex justify-between items-center cursor-pointer">
-                <span>تمارين البطن (Crunches)</span>
-                <span class="text-[#CCFF00]">ابدأ ←</span>
+            <div onclick="startWorkout('تمرين الضغط', 8)" class="bg-white/5 p-5 rounded-2xl flex justify-between items-center cursor-pointer border border-white/5">
+                <span class="font-bold">Pushups</span>
+                <span class="text-[#CCFF00]">ابدأ التمرين ←</span>
             </div>
         </div>
     </div>
 
     <div id="page-timer" class="page fixed inset-0 bg-black p-6 flex flex-col items-center justify-center text-center">
-        <h3 id="active-ex-name" class="text-2xl font-bold mb-2 text-[#CCFF00]">اسم التمرين</h3>
-        <div id="timer-display" class="text-7xl font-black mb-8 italic">00:00</div>
+        <h3 id="active-ex-name" class="text-2xl font-bold mb-2 neon-text italic">اسم التمرين</h3>
+        <div id="timer-display" class="text-8xl font-black mb-10 italic">00:00</div>
         
-        <div class="grid grid-cols-2 gap-4 w-full mb-8">
-            <div class="bg-white/5 p-4 rounded-2xl">
-                <div id="live-cals" class="text-2xl font-bold">0</div>
-                <div class="text-[10px] opacity-40">سعرة</div>
+        <div class="grid grid-cols-2 gap-4 w-full mb-10">
+            <div class="bg-white/5 p-4 rounded-3xl">
+                <div id="live-cals" class="text-3xl font-black neon-text">0</div>
+                <div class="text-[10px] opacity-40 uppercase">Kcal</div>
             </div>
-            <div class="bg-white/5 p-4 rounded-2xl">
-                <div id="set-counter" class="text-2xl font-bold italic">1 / 4</div>
-                <div class="text-[10px] opacity-40">المجموعة</div>
+            <div class="bg-white/5 p-4 rounded-3xl">
+                <div id="set-counter" class="text-3xl font-black italic">1 / 4</div>
+                <div class="text-[10px] opacity-40 uppercase">Sets</div>
             </div>
         </div>
 
-        <button onclick="nextSet()" class="w-full py-5 btn-neon rounded-full mb-4">إنهاء المجموعة (SET)</button>
-        <button onclick="exitWorkout()" class="text-red-500 font-bold uppercase tracking-widest text-sm">إيقاف الخروج نهائياً</button>
+        <button onclick="nextSet()" class="w-full py-5 border-2 border-[#CCFF00] text-[#CCFF00] font-black rounded-full mb-4">إنهاء المجموعة (SET)</button>
+        <button onclick="exitWorkout()" class="text-red-500/50 font-bold text-xs uppercase tracking-widest">إيقاف التمرين كلياً</button>
     </div>
 
-    <nav class="fixed bottom-0 left-0 w-full bg-black/90 p-4 border-t border-white/5 flex justify-around z-[100]">
-        <button onclick="goToPage('page-main')" class="text-[#CCFF00] text-xs font-bold">الجدول</button>
-        <button onclick="goToPage('page-onboarding')" class="text-white/30 text-xs font-bold">حسابي</button>
-    </nav>
-
     <script>
-        let workoutState = {
-            seconds: 0,
-            sets: 1,
-            timerInterval: null,
-            currentCalRate: 0,
-            totalTodayCals: 0
-        };
+        let state = { seconds: 0, sets: 1, timer: null, rate: 0 };
 
         function goToPage(pageId) {
-            // إخفاء كل الصفحات
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            // إظهار الصفحة المطلوبة
+            // إخفاء كل الصفحات أولاً
+            document.querySelectorAll('.page').forEach(p => {
+                p.classList.remove('active');
+                p.style.display = 'none'; // تأكيد الإخفاء القسري
+            });
+            // إظهار الصفحة المطلوبة فقط
             const target = document.getElementById(pageId);
-            if(target) target.classList.add('active');
+            target.classList.add('active');
+            target.style.display = 'flex'; // أو 'block' حسب نوع الصفحة
+            if(pageId === 'page-main' || pageId === 'page-onboarding') target.style.display = 'block';
         }
 
         function startWorkout(name, rate) {
-            workoutState.seconds = 0;
-            workoutState.sets = 1;
-            workoutState.currentCalRate = rate;
-            
+            state.seconds = 0; state.sets = 1; state.rate = rate;
             document.getElementById('active-ex-name').innerText = name;
             document.getElementById('set-counter').innerText = `1 / 4`;
-            document.getElementById('timer-display').innerText = "00:00";
-            
             goToPage('page-timer');
 
-            clearInterval(workoutState.timerInterval);
-            workoutState.timerInterval = setInterval(() => {
-                workoutState.seconds++;
-                updateTimerUI();
+            clearInterval(state.timer);
+            state.timer = setInterval(() => {
+                state.seconds++;
+                updateUI();
             }, 1000);
         }
 
-        function updateTimerUI() {
-            let m = Math.floor(workoutState.seconds / 60);
-            let s = workoutState.seconds % 60;
+        function updateUI() {
+            let m = Math.floor(state.seconds / 60);
+            let s = state.seconds % 60;
             document.getElementById('timer-display').innerText = `${m < 10 ? '0'+m : m}:${s < 10 ? '0'+s : s}`;
             
-            // حساب السعرات
-            let weight = document.getElementById('user-weight').value || 70;
-            let burned = Math.floor((workoutState.seconds / 60) * workoutState.currentCalRate * (weight / 70));
+            let weight = document.getElementById('user-weight').value || 50;
+            let age = document.getElementById('user-age').value || 20;
+            // معادلة مطورة للسعرات تشمل العمر
+            let burned = Math.floor((state.seconds / 60) * state.rate * (weight / 70) * (1 - (age * 0.002)));
             document.getElementById('live-cals').innerText = burned;
         }
 
         function nextSet() {
-            if (workoutState.sets < 4) {
-                workoutState.sets++;
-                document.getElementById('set-counter').innerText = `${workoutState.sets} / 4`;
-                alert("انتهت المجموعة! استرح قليلاً.");
+            if (state.sets < 4) {
+                state.sets++;
+                document.getElementById('set-counter').innerText = `${state.sets} / 4`;
+                alert("استرح قليلاً بطل!");
             } else {
-                alert("كفو! أنهيت جميع المجموعات.");
+                alert("عاش! تم إنهاء التمرين بنجاح.");
                 exitWorkout();
             }
         }
 
         function exitWorkout() {
-            clearInterval(workoutState.timerInterval);
-            // العودة للصفحة الرئيسية
+            clearInterval(state.timer);
             goToPage('page-main');
         }
 
-        // التأكد من تشغيل صفحة الدخول عند البداية
+        // تشغيل صفحة الدخول عند البداية فقط
         window.onload = () => goToPage('page-login');
     </script>
 </body>
