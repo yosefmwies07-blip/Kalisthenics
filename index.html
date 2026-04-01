@@ -2,144 +2,86 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Blue Flash - Stable</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>The Blue Flash - Professional Protocol</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Cairo', sans-serif; background-color: #0d0f05; color: #fff; margin: 0; overflow-x: hidden; }
-        /* القفل السحري لمنع التداخل */
-        .page { 
-            display: none; /* مخفية تماماً بشكل افتراضي */
-            min-height: 100vh; 
-            width: 100%; 
-            background: #0d0f05;
-        }
-        /* الصفحة النشطة فقط هي التي تظهر */
-        .page.active { display: block !important; }
-        .neon-text { color: #CCFF00; }
-        .neon-bg { background-color: #CCFF00 !important; color: #000 !important; }
+        :root { --neon: #CCFF00; --bg: #0d0f05; }
+        body { font-family: 'Cairo', sans-serif; background-color: var(--bg); color: #fff; margin: 0; touch-action: manipulation; }
+        .page { display: none; min-height: 100vh; width: 100%; background: var(--bg); position: fixed; top: 0; left: 0; overflow-y: auto; }
+        .page.active { display: block !important; z-index: 100; }
+        .neon-border { border: 1px solid var(--neon); box-shadow: 0 0 10px rgba(204,255,0,0.2); }
+        .btn-main { background: var(--neon); color: #000; font-weight: 900; transition: all 0.2s; }
+        .btn-main:active { transform: scale(0.95); opacity: 0.8; }
+        input, select { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 15px; border-radius: 15px; width: 100%; outline: none; text-align: center; }
+        input:focus { border-color: var(--neon); }
     </style>
 </head>
 <body>
 
-    <div id="page-login" class="page active flex flex-col items-center justify-center p-8 text-center">
-        <h1 class="text-5xl font-black neon-text mb-4 italic">THE BLUE FLASH</h1>
-        <p class="opacity-50 mb-10 text-sm">نظام التدريب الذكي</p>
-        <button onclick="goToPage('page-onboarding')" class="w-full py-4 bg-white text-black font-bold rounded-2xl">الدخول بواسطة Google</button>
+    <div id="p-login" class="page active flex flex-col items-center justify-center p-8">
+        <div class="mb-10 text-center">
+            <h1 class="text-6xl font-black italic tracking-tighter" style="color: var(--neon)">THE BLUE<br>FLASH</h1>
+            <p class="text-[10px] tracking-[0.5em] opacity-30 mt-2">STRENGTH & RECOVERY</p>
+        </div>
+        <button onclick="navTo('p-profile')" class="w-full py-5 bg-white text-black font-black rounded-2xl flex items-center justify-center gap-3 shadow-2xl">
+            <img src="https://www.google.com/favicon.ico" class="w-5"> الدخول السريع بواسطة Google
+        </button>
     </div>
 
-    <div id="page-onboarding" class="page p-6">
-        <h2 class="text-2xl font-bold mb-8 neon-text italic text-right">إعداد الملف الشخصي</h2>
-        <div class="space-y-6">
+    <div id="p-profile" class="page p-6">
+        <h2 class="text-3xl font-black italic mb-8" style="color: var(--neon)">بروتوكول البيانات</h2>
+        <div class="space-y-5">
             <div>
-                <label class="block text-xs opacity-50 mb-2 text-right">العمر</label>
-                <input id="user-age" type="number" placeholder="أدخل عمرك" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-[#CCFF00] text-right">
+                <label class="text-[10px] opacity-40 block mb-2 mr-2">العمر الحالي</label>
+                <input id="u-age" type="number" placeholder="مثال: 25">
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="text-[10px] opacity-40 block mb-2 mr-2">الوزن (كجم)</label>
+                    <input id="u-weight" type="number" placeholder="70">
+                </div>
+                <div>
+                    <label class="text-[10px] opacity-40 block mb-2 mr-2">الطول (سم)</label>
+                    <input id="u-height" type="number" placeholder="175">
+                </div>
             </div>
             <div>
-                <label class="block text-xs opacity-50 mb-2 text-right">الوزن (كجم)</label>
-                <input id="user-weight" type="number" value="50" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none text-right">
-            </div>
-            <div>
-                <label class="block text-xs opacity-50 mb-2 text-right">المستوى</label>
-                <select id="user-level" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none text-right">
-                    <option value="1">مبتدئ</option>
-                    <option value="1.5">متوسط</option>
-                    <option value="2">متقدم</option>
+                <label class="text-[10px] opacity-40 block mb-2 mr-2">مستوى اللياقة الحالي</label>
+                <select id="u-level">
+                    <option value="1.2">مبتدئ (بداية الطريق)</option>
+                    <option value="1.5">متوسط (تمارس الرياضة أحياناً)</option>
+                    <option value="1.9">متقدم (رياضي محترف)</option>
                 </select>
             </div>
-            <button onclick="goToPage('page-main')" class="w-full py-4 neon-bg font-black rounded-xl">حفظ والمتابعة</button>
+            <button onclick="saveAndGo()" class="w-full py-5 btn-main rounded-2xl mt-6 shadow-[0_10px_30px_rgba(204,255,0,0.2)]">تحليل البيانات والبدء</button>
         </div>
-    </div>
-
-    <div id="page-main" class="page p-6 pb-24">
-        <h2 class="text-2xl font-black mb-6 italic neon-text text-right uppercase">الجدول اليومي</h2>
-        <div class="space-y-4">
-            <div onclick="startWorkout('تمرين الضغط', 8)" class="bg-white/5 p-5 rounded-2xl flex justify-between items-center cursor-pointer border border-white/5">
-                <span class="font-bold">Pushups</span>
-                <span class="text-[#CCFF00]">ابدأ التمرين ←</span>
-            </div>
-        </div>
-    </div>
-
-    <div id="page-timer" class="page fixed inset-0 bg-black p-6 flex flex-col items-center justify-center text-center">
-        <h3 id="active-ex-name" class="text-2xl font-bold mb-2 neon-text italic">اسم التمرين</h3>
-        <div id="timer-display" class="text-8xl font-black mb-10 italic">00:00</div>
-        
-        <div class="grid grid-cols-2 gap-4 w-full mb-10">
-            <div class="bg-white/5 p-4 rounded-3xl">
-                <div id="live-cals" class="text-3xl font-black neon-text">0</div>
-                <div class="text-[10px] opacity-40 uppercase">Kcal</div>
-            </div>
-            <div class="bg-white/5 p-4 rounded-3xl">
-                <div id="set-counter" class="text-3xl font-black italic">1 / 4</div>
-                <div class="text-[10px] opacity-40 uppercase">Sets</div>
-            </div>
-        </div>
-
-        <button onclick="nextSet()" class="w-full py-5 border-2 border-[#CCFF00] text-[#CCFF00] font-black rounded-full mb-4">إنهاء المجموعة (SET)</button>
-        <button onclick="exitWorkout()" class="text-red-500/50 font-bold text-xs uppercase tracking-widest">إيقاف التمرين كلياً</button>
     </div>
 
     <script>
-        let state = { seconds: 0, sets: 1, timer: null, rate: 0 };
-
-        function goToPage(pageId) {
-            // إخفاء كل الصفحات أولاً
-            document.querySelectorAll('.page').forEach(p => {
-                p.classList.remove('active');
-                p.style.display = 'none'; // تأكيد الإخفاء القسري
-            });
-            // إظهار الصفحة المطلوبة فقط
-            const target = document.getElementById(pageId);
+        function navTo(id) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            const target = document.getElementById(id);
             target.classList.add('active');
-            target.style.display = 'flex'; // أو 'block' حسب نوع الصفحة
-            if(pageId === 'page-main' || pageId === 'page-onboarding') target.style.display = 'block';
+            if (id === 'p-login') target.style.display = 'flex';
         }
 
-        function startWorkout(name, rate) {
-            state.seconds = 0; state.sets = 1; state.rate = rate;
-            document.getElementById('active-ex-name').innerText = name;
-            document.getElementById('set-counter').innerText = `1 / 4`;
-            goToPage('page-timer');
-
-            clearInterval(state.timer);
-            state.timer = setInterval(() => {
-                state.seconds++;
-                updateUI();
-            }, 1000);
-        }
-
-        function updateUI() {
-            let m = Math.floor(state.seconds / 60);
-            let s = state.seconds % 60;
-            document.getElementById('timer-display').innerText = `${m < 10 ? '0'+m : m}:${s < 10 ? '0'+s : s}`;
-            
-            let weight = document.getElementById('user-weight').value || 50;
-            let age = document.getElementById('user-age').value || 20;
-            // معادلة مطورة للسعرات تشمل العمر
-            let burned = Math.floor((state.seconds / 60) * state.rate * (weight / 70) * (1 - (age * 0.002)));
-            document.getElementById('live-cals').innerText = burned;
-        }
-
-        function nextSet() {
-            if (state.sets < 4) {
-                state.sets++;
-                document.getElementById('set-counter').innerText = `${state.sets} / 4`;
-                alert("استرح قليلاً بطل!");
-            } else {
-                alert("عاش! تم إنهاء التمرين بنجاح.");
-                exitWorkout();
+        function saveAndGo() {
+            const data = {
+                age: document.getElementById('u-age').value,
+                weight: document.getElementById('u-weight').value,
+                height: document.getElementById('u-height').value,
+                level: document.getElementById('u-level').value
+            };
+            if(!data.age || !data.weight || !data.height) {
+                alert("يرجى إكمال كافة البيانات لبناء بروتوكولك بدقة");
+                return;
             }
+            localStorage.setItem('user_protocol', JSON.stringify(data));
+            // هنا سينتقل لصفحة الجدول في الجزء القادم
+            alert("تم تحليل البيانات بنجاح!");
         }
-
-        function exitWorkout() {
-            clearInterval(state.timer);
-            goToPage('page-main');
-        }
-
-        // تشغيل صفحة الدخول عند البداية فقط
-        window.onload = () => goToPage('page-login');
     </script>
 </body>
 </html>
